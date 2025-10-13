@@ -131,6 +131,8 @@ This runs the server directly from TypeScript source using `tsx`.
 
 Generate AI-powered Gamma content (presentations, documents, or social posts).
 
+**Note**: This tool returns a generation ID. Use the `get_gamma_generation` tool to automatically wait for completion and retrieve the final URLs.
+
 #### Parameters
 
 | Parameter | Type | Required | Description |
@@ -199,13 +201,75 @@ The AI will use the tool like this:
 }
 ```
 
+### `get_gamma_generation`
+
+Retrieve the status and URLs of a Gamma generation. **Automatically polls every 5 seconds** until generation is complete (recommended by [Gamma API](https://developers.gamma.app/reference/get-gamma-file-urls)).
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `generationId` | string | ✅ | The generation ID returned from `generate_gamma` |
+| `pollUntilComplete` | boolean | ❌ | Whether to automatically poll until complete (default: `true`) |
+| `maxWaitSeconds` | number | ❌ | Maximum wait time in seconds when polling (default: `300` = 5 minutes) |
+
+#### Automatic Polling (Default Behavior)
+
+By default, the tool **automatically polls every 5 seconds** until the generation is complete or fails:
+- ✅ Follows Gamma API recommendation (5-second intervals)
+- ✅ Returns final URLs when ready
+- ✅ Times out after 5 minutes (configurable)
+- ✅ Simple single tool call - no manual polling needed
+
+#### Response
+
+The tool returns a JSON response containing:
+- **Status**: `pending`, `processing`, `completed`, or `failed`
+- **URL**: Link to the generated Gamma (editable in Gamma app)
+- **Export URLs**: PDF or PPTX download links (if requested during generation)
+
+#### Example Usage
+
+**Automatic polling (recommended)**:
+```json
+{
+  "generationId": "abc123"
+}
+```
+*Waits until complete and returns final URLs*
+
+**Custom timeout**:
+```json
+{
+  "generationId": "abc123",
+  "maxWaitSeconds": 600
+}
+```
+*Waits up to 10 minutes*
+
+**Single status check (no polling)**:
+```json
+{
+  "generationId": "abc123",
+  "pollUntilComplete": false
+}
+```
+*Returns current status immediately without waiting*
+
 ## Response Format
 
-The tool returns a JSON response from the Gamma API containing:
-- Generation ID
-- Status
-- Link to the generated content
-- Export links (if requested)
+### `generate_gamma` Response
+
+Returns a JSON response from the Gamma API containing:
+- Generation ID (use with `get_gamma_generation`)
+- Initial status
+
+### `get_gamma_generation` Response
+
+Returns:
+- Current status (pending, processing, completed, failed)
+- Gamma URL (when completed)
+- Export links for PDF/PPTX (if requested)
 
 ## Development Workflow
 
@@ -222,7 +286,7 @@ gamma-mcp/
 └── README.md
 ```
 
-**Note**: The `server.json` file is required for publishing to the [MCP Registry](https://github.com/modelcontextprotocol/registry). It contains metadata about your server including its namespace (`io.github.raydeck/gamma-app-mcp`), package information, and deployment configuration.
+**Note**: The `server.json` file is required for publishing to the [MCP Registry](https://github.com/modelcontextprotocol/registry). It contains metadata about your server including its namespace (`io.github.statechangelabs/gamma-app-mcp`), package information, and deployment configuration.
 
 ### Building
 
@@ -300,7 +364,7 @@ After publishing to NPM, you can publish to the official MCP registry to make yo
 
 4. **Verify publication**:
    ```bash
-   curl "https://registry.modelcontextprotocol.io/v0/servers?search=io.github.raydeck/gamma-app-mcp"
+   curl "https://registry.modelcontextprotocol.io/v0/servers?search=io.github.statechangelabs/gamma-app-mcp"
    ```
 
 For detailed instructions, see the [official publishing guide](https://github.com/modelcontextprotocol/registry/blob/main/docs/guides/publishing/publish-server.md).
@@ -342,6 +406,6 @@ Ray Deck
 ## Support
 
 For issues and questions:
-- GitHub Issues: [Create an issue](https://github.com/raydeck/gamma-app-mcp/issues)
+- GitHub Issues: [Create an issue](https://github.com/statechangelabs/gamma-app-mcp/issues)
 - Gamma API Support: [Gamma Help Center](https://gamma.app/help)
 
