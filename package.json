@@ -1,6 +1,6 @@
 {
   "name": "@raydeck/gamma-app-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "mcpName": "io.github.raydeck/gamma-app-mcp",
   "type": "module",
   "bin": {
