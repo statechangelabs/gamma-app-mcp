@@ -1,0 +1,44 @@
+{
+  "name": "@raydeck/gamma-app-mcp",
+  "version": "1.0.0",
+  "mcpName": "io.github.raydeck/gamma-app-mcp",
+  "type": "module",
+  "bin": {
+    "gamma-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "server.json"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "dev": "tsx src/index.ts",
+    "validate": "node validate-server-json.cjs"
+  },
+  "keywords": [
+    "mcp",
+    "gamma",
+    "api",
+    "server",
+    "presentation",
+    "ai",
+    "generation"
+  ],
+  "author": "Ray Deck",
+  "license": "ISC",
+  "description": "MCP server for Gamma.app API - Generate AI-powered presentations, documents, and social media posts",
+  "homepage": "https://github.com/statechangelabs/gamma-app-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/statechangelabs/gamma-app-mcp.git"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.7.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

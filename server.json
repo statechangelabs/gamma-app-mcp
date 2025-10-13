@@ -1,0 +1,25 @@
+{
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+    "name": "io.github.statechangelabs/gamma-app-mcp",
+    "title": "Gamma Presentation Generator",
+    "description": "Generate AI-powered presentations, documents, and social media posts using Gamma.app API- by State Change",
+    "version": "1.0.0",
+    "homepage": "https://github.com/statechangelabs/gamma-app-mcp",
+    "license": "ISC",
+    "packages": [
+        {
+            "registryType": "npm",
+            "identifier": "@raydeck/gamma-app-mcp",
+            "version": "1.0.0",
+            "transport": {
+                "type": "stdio"
+            },
+            "env": {
+                "GAMMA_API_KEY": {
+                    "description": "Your Gamma.app API key (get one from https://gamma.app/settings/api)",
+                    "required": true
+                }
+            }
+        }
+    ]
+}
