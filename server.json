@@ -2,7 +2,7 @@
     "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
     "name": "io.github.statechangelabs/gamma-app-mcp",
     "title": "Gamma Presentation Generator",
-    "description": "Generate AI-powered presentations, documents, and social media posts using Gamma.app API- by State Change",
+    "description": "Generate AI-powered presentations, documents, and social posts with Gamma.app API",
     "version": "1.0.0",
     "homepage": "https://github.com/statechangelabs/gamma-app-mcp",
     "license": "ISC",
